@@ -37,6 +37,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddPago" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Monto" Type="int" Mode="In" />
+          <Parameter Name="Referencia" Type="varchar" Mode="In" />
+          <Parameter Name="IdServicios" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetNip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NoTarjeta" Type="int" Mode="In" />
           <Parameter Name="Nip" Type="int" Mode="In" />
@@ -118,6 +123,11 @@
             <Parameter Name="NoTarjeta" Mode="In" Type="Int32" />
             <Parameter Name="Nip" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="AddPago">
+            <Parameter Name="Monto" Mode="In" Type="Int32" />
+            <Parameter Name="Referencia" Mode="In" Type="String" />
+            <Parameter Name="IdServicios" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetNip_Result">
           <Property Type="Int32" Name="IdTarjeta" Nullable="false" />
@@ -170,6 +180,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AddPago" FunctionName="BancoModel.Store.AddPago" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -73,5 +73,22 @@ namespace DL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNip_Result>("GetNip", noTarjetaParameter, nipParameter);
         }
+    
+        public virtual int AddPago(Nullable<int> monto, string referencia, Nullable<int> idServicios)
+        {
+            var montoParameter = monto.HasValue ?
+                new ObjectParameter("Monto", monto) :
+                new ObjectParameter("Monto", typeof(int));
+    
+            var referenciaParameter = referencia != null ?
+                new ObjectParameter("Referencia", referencia) :
+                new ObjectParameter("Referencia", typeof(string));
+    
+            var idServiciosParameter = idServicios.HasValue ?
+                new ObjectParameter("IdServicios", idServicios) :
+                new ObjectParameter("IdServicios", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddPago", montoParameter, referenciaParameter, idServiciosParameter);
+        }
     }
 }
