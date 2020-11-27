@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BancoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdClientes" />
+          </Key>
+          <Property Name="IdClientes" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Apaterno" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Amaterno" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarjetas">
+          <Key>
+            <PropertyRef Name="IdTarjeta" />
+          </Key>
+          <Property Name="IdTarjeta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoCuenta" Type="int" Nullable="false" />
+          <Property Name="NoTarjeta" Type="int" Nullable="false" />
+          <Property Name="Nip" Type="int" Nullable="false" />
+          <Property Name="Saldo" Type="int" Nullable="false" />
+          <Property Name="IdClientes" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Tarjetas__IdClie__22AA2996">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Tarjetas" Type="Self.Tarjetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdClientes" />
+            </Principal>
+            <Dependent Role="Tarjetas">
+              <PropertyRef Name="IdClientes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetNip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NoTarjeta" Type="int" Mode="In" />
+          <Parameter Name="Nip" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetSaldo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NoTarjeta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTarjeta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NoTarjeta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RetiroSaldo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NoTarjeta" Type="int" Mode="In" />
+          <Parameter Name="Saldo" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="BancoModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarjetas" EntityType="Self.Tarjetas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tarjetas__IdClie__22AA2996" Association="Self.FK__Tarjetas__IdClie__22AA2996">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Tarjetas" EntitySet="Tarjetas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdClientes" />
+          </Key>
+          <Property Name="IdClientes" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apaterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amaterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tarjetas" Relationship="Self.FK__Tarjetas__IdClie__22AA2996" FromRole="Clientes" ToRole="Tarjetas" />
+        </EntityType>
+        <EntityType Name="Tarjetas">
+          <Key>
+            <PropertyRef Name="IdTarjeta" />
+          </Key>
+          <Property Name="IdTarjeta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoCuenta" Type="Int32" Nullable="false" />
+          <Property Name="NoTarjeta" Type="Int32" Nullable="false" />
+          <Property Name="Nip" Type="Int32" Nullable="false" />
+          <Property Name="Saldo" Type="Int32" Nullable="false" />
+          <Property Name="IdClientes" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Tarjetas__IdClie__22AA2996" FromRole="Tarjetas" ToRole="Clientes" />
+        </EntityType>
+        <Association Name="FK__Tarjetas__IdClie__22AA2996">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Tarjetas" Type="Self.Tarjetas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdClientes" />
+            </Principal>
+            <Dependent Role="Tarjetas">
+              <PropertyRef Name="IdClientes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Tarjetas" EntityType="Self.Tarjetas" />
+          <AssociationSet Name="FK__Tarjetas__IdClie__22AA2996" Association="Self.FK__Tarjetas__IdClie__22AA2996">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Tarjetas" EntitySet="Tarjetas" />
+          </AssociationSet>
+          <FunctionImport Name="GetSaldo" ReturnType="Collection(Int32)">
+          <Parameter Name="NoTarjeta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTarjeta" ReturnType="Collection(String)">
+          <Parameter Name="NoTarjeta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RetiroSaldo">
+            <Parameter Name="NoTarjeta" Mode="In" Type="Int32" />
+            <Parameter Name="Saldo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetNip" ReturnType="Collection(BancoModel.GetNip_Result)">
+            <Parameter Name="NoTarjeta" Mode="In" Type="Int32" />
+            <Parameter Name="Nip" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetNip_Result">
+          <Property Type="Int32" Name="IdTarjeta" Nullable="false" />
+          <Property Type="Int32" Name="NoCuenta" Nullable="false" />
+          <Property Type="Int32" Name="NoTarjeta" Nullable="false" />
+          <Property Type="Int32" Name="Nip" Nullable="false" />
+          <Property Type="Int32" Name="Saldo" Nullable="false" />
+          <Property Type="Int32" Name="IdClientes" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="BancoModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdClientes" ColumnName="IdClientes" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apaterno" ColumnName="Apaterno" />
+                <ScalarProperty Name="Amaterno" ColumnName="Amaterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarjetas">
+            <EntityTypeMapping TypeName="BancoModel.Tarjetas">
+              <MappingFragment StoreEntitySet="Tarjetas">
+                <ScalarProperty Name="IdTarjeta" ColumnName="IdTarjeta" />
+                <ScalarProperty Name="NoCuenta" ColumnName="NoCuenta" />
+                <ScalarProperty Name="NoTarjeta" ColumnName="NoTarjeta" />
+                <ScalarProperty Name="Nip" ColumnName="Nip" />
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="IdClientes" ColumnName="IdClientes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetSaldo" FunctionName="BancoModel.Store.GetSaldo" />
+          <FunctionImportMapping FunctionImportName="GetTarjeta" FunctionName="BancoModel.Store.GetTarjeta" />
+          <FunctionImportMapping FunctionImportName="RetiroSaldo" FunctionName="BancoModel.Store.RetiroSaldo" />
+          <FunctionImportMapping FunctionImportName="GetNip" FunctionName="BancoModel.Store.GetNip">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BancoModel.GetNip_Result">
+                <ScalarProperty Name="IdTarjeta" ColumnName="IdTarjeta" />
+                <ScalarProperty Name="NoCuenta" ColumnName="NoCuenta" />
+                <ScalarProperty Name="NoTarjeta" ColumnName="NoTarjeta" />
+                <ScalarProperty Name="Nip" ColumnName="Nip" />
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="IdClientes" ColumnName="IdClientes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
